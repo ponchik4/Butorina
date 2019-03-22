@@ -14,4 +14,4 @@ months[1] = 29 if leap_year
 
 today = 0
 today = day + months.take(month - 1).inject(0, :+)
-puts "Сегодня #{today} день"
+puts "Сегодня #{today}-й день"
