@@ -1,9 +1,7 @@
 arr = [1, 1]
-next_id = 2
-
-while next_id < 100 do
-  arr.push(next_id)
-  next_id = arr.last + arr[-2]
+next_number = 2
+while next_number < 100
+  arr << next_number
+  (next_number = arr[-1] + arr[-2])
 end
-
 puts arr
