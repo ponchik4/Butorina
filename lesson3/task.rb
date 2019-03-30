@@ -1,5 +1,5 @@
 class Station
-  attr_reader :name, :trains
+  attr_reader :name, :trains, :type
 
   def initialize(name)
    @name = name
@@ -15,7 +15,7 @@ class Station
   end
 
   def get_train_by_type(type)
-    @trains.select.count { |train| train.type == train }
+    @trains.select { |train| train.type == train }
   end
 end
 
@@ -26,7 +26,7 @@ class Route
   def initialize (first_station, last_station)
     @first_station = first_station
     @last_station = last_station
-    @stations = [@first_station, @last_station]
+    @stations = []
   end
 
   def add_stations(station)
