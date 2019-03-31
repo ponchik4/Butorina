@@ -1,5 +1,5 @@
 class Station
-  attr_reader :name, :trains, :get_train_by_type
+  attr_reader :name, :trains
 
   def initialize(name)
    @name = name
@@ -28,7 +28,7 @@ class Route
   end
 
   def stations
-  [@first_station, stations, @last_station].flatten
+  [@first_station, @stations, @last_station].flatten
   end
 
   def add_stations(station)
@@ -43,7 +43,7 @@ end
 
 
 class Train
-  attr_reader :carriage, :current_station, :speed
+  attr_reader :carriage, :current_station, :speed, :type
 
   def initialize (number, type)
     @number = number
@@ -93,10 +93,10 @@ class Train
   end
 
   def next_station
-   @route.stations[@current_station_index + 1] if @current_station_index != @last_station
+   @route.stations[@current_station_index + 1] if @current_station != @last_station
   end
 
   def previous_station
-   @route.stations[@current_station_index - 1] if @current_station_index > 0
+   @route.stations[@current_station_index - 1] if @current_station != @first_station
   end
 end
