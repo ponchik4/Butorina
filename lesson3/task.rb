@@ -77,7 +77,6 @@ class Train
   def set_route(route)
     @route = route
     @current_station = route.stations.first
-    @current_station_index = 0
   end
 
   def move_forward
@@ -93,10 +92,14 @@ class Train
   end
 
   def next_station
-   @route.stations[@current_station_index + 1] if @current_station != @last_station
+   @route.stations[get_current_station_index(@current_station) + 1] if @current_station != @last_station
   end
 
   def previous_station
-   @route.stations[@current_station_index - 1] if @current_station != @first_station
+   @route.stations[get_current_station_index(@current_station) - 1] if @current_station != @first_station
+  end
+
+  def get_current_station_index(current_station)
+    @route.stations.index(current_station)
   end
 end
