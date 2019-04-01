@@ -21,6 +21,8 @@ end
 
 
 class Route
+  attr_reader :last_station, :first_station
+
   def initialize (first_station, last_station)
     @first_station = first_station
     @last_station = last_station
@@ -77,29 +79,38 @@ class Train
   def set_route(route)
     @route = route
     @current_station = route.stations.first
+    @current_station_index = 0
   end
 
   def move_forward
    @current_station.remove_train(self)
    @current_station = next_station
-   @current_station.add_train(self)
+   @current_station.add_train(self) if @current_station
   end
 
   def move_back
     @current_station.remove_train(self)
     @current_station = previous_station
-    @current_station.add_train(self)
+    @current_station.add_train(self) if @current_station
   end
 
   def next_station
-   @route.stations[get_current_station_index(@current_station) + 1] if @current_station != @last_station
+    if @current_station.name != @route.last_station.name
+      @current_station_index += 1
+      @route.stations[@current_station_index]
+    else
+      puts "Конечная станция #{@route.last_station.name}, поезд дальше не идёт"
+      @route.last_station
+    end
   end
 
   def previous_station
-   @route.stations[get_current_station_index(@current_station) - 1] if @current_station != @first_station
-  end
-
-  def get_current_station_index(current_station)
-    @route.stations.index(current_station)
+    if @current_station.name != @route.first_station.name
+      @current_station_index -= 1
+      @route.stations[@current_station_index]
+    else
+     puts "Поезд прибыл на станцию отправления: #{@route.first_station.name}"
+     @route.first_station
+    end
   end
 end
