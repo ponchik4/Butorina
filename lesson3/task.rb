@@ -83,34 +83,28 @@ class Train
   end
 
   def move_forward
-   @current_station.remove_train(self)
-   @current_station = next_station
-   @current_station.add_train(self) if @current_station
+    if next_station
+      @current_station.remove_train(self)
+      @current_station_index += 1
+      @current_station = next_station
+      @current_station.add_train(self)
+    end
   end
 
   def move_back
-    @current_station.remove_train(self)
-    @current_station = previous_station
-    @current_station.add_train(self) if @current_station
+    if previous_station
+      @current_station.remove_train(self)
+      @current_station_index -= 1
+      @current_station = previous_station
+      @current_station.add_train(self)
+    end
   end
 
   def next_station
-    if @current_station.name != @route.last_station.name
-      @current_station_index += 1
-      @route.stations[@current_station_index]
-    else
-      puts "Конечная станция #{@route.last_station.name}, поезд дальше не идёт"
-      @route.last_station
-    end
+    @route.stations[@current_station_index] if @current_station != @route.last_station
   end
 
   def previous_station
-    if @current_station.name != @route.first_station.name
-      @current_station_index -= 1
-      @route.stations[@current_station_index]
-    else
-     puts "Поезд прибыл на станцию отправления: #{@route.first_station.name}"
-     @route.first_station
-    end
+    @route.stations[@current_station_index] if @current_station != @route.first_station
   end
 end
