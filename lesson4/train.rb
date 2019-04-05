@@ -1,48 +1,5 @@
-class Station
-  attr_reader :name, :trains
-
-  def initialize(name)
-   @name = name
-   @trains = []
-  end
-
-  def add_train (train)
-    @trains << train
-  end
-
-  def remove_train(train)
-    @trains.delete(train)
-  end
-
-  def get_train_by_type(type)
-    @trains.select { |train| train.type == train }
-  end
-end
-
-
-class Route
-  attr_reader :last_station, :first_station
-
-  def initialize (first_station, last_station)
-    @first_station = first_station
-    @last_station = last_station
-    @stations = []
-  end
-
-  def stations
-  [@first_station, @stations, @last_station].flatten
-  end
-
-  def add_stations(station)
-    @stations.push(station)
-  end
-
-  def intermediate_staion(station)
-    return if [@first_station, @last_station].include?(station)
-    @stantions.delete(station)
-  end
-end
-
+require_relative 'passenger_train'
+require_relative 'cargo_train'
 
 class Train
   attr_reader :carriage, :current_station, :speed, :type
@@ -99,6 +56,8 @@ class Train
       @current_station.add_train(self)
     end
   end
+
+  protected
 
   def next_station
     @route.stations[@current_station_index] if @current_station != @route.last_station
