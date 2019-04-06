@@ -21,13 +21,14 @@ loop do
   break if x == 0
   case x
     when 1
-      Station.new
+      station1 = Station.new('station1')
+      station2 = Station.new('station2')
     when 2
-      Train.new
+      train1 = Train.new('67', 'cargo')
     when 3
-      Route.add_stations
+      route = Route.new(station1, station2)
     when 4
-      Train.set_route
+      route = train1.set_route(route)
     when 5
       PassengerTrain.add_carriage if @type = passanger
       CargoTrain.add_carriage if @type = cargo
