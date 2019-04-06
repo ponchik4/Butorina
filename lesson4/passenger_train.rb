@@ -1,6 +1,5 @@
-require_relative 'train'
+class PassengerTrain < Train
 
-class Passenger_Train < Train
   attr_reader :number, :type
 
   def initialize (number)
@@ -9,6 +8,11 @@ class Passenger_Train < Train
   end
 
   def add_carriage
+    @passanger_carriage + 1 if @speed == 0
+  end
 
+  def delete_carriage
+    @passanger_carriage - 1 if @speed == 0
+    @passanger_carriage = 0 if @carriage < 0
   end
 end
