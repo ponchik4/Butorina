@@ -18,11 +18,13 @@ def create_train
   puts "Если вы хотите создать пассажирский поезд, ведите: passenger,
   или если вы хотите создать грузовой поезд, то ведите: cargo"
   @type = gets.chomp
-  @trains << PassengerTrain.new(number) if @type = passenger
-  @trains << CargoTrain.new(number) if @type = cargo
-else
-  puts "Вы допустили ошибку, попробуйте еще раз"
-end
+  if @type = passenger
+    @trains << PassengerTrain.new(number)
+  elsif @type = cargo
+    @trains << CargoTrain.new(number)
+  else
+    puts "Вы допустили ошибку, попробуйте еще раз"
+  end
 end
 
 def create_route
