@@ -23,17 +23,17 @@ def start
     x = gets.to_i
     break if x == 0
     case x
-      when 1 then Menu.add_station
-      when 2 then Menu.create_train
-      when 3 then Menu.create_route
-      when 4 then Menu.assign_route
-      when 5 then Menu.add_carriage
-      when 6 then Menu.delete_carriage
-      when 7 then Menu.move_forward
-      when 8 then Menu.move_back
-      when 9 then Menu.show_stations_and_trains
-       else
-         puts "Вы ввели что-то не то"
+    when 1 Menu.add_station
+    when 2 Menu.create_train
+    when 3 Menu.create_route
+    when 4 Menu.assign_route
+    when 5 Menu.add_carriage
+    when 6 Menu.delete_carriage
+    when 7 Menu.move_forward
+    when 8 Menu.move_back
+    when 9 Menu.show_stations_and_trains
+    else
+      puts "Вы ввели что-то не то"
     end
     end
   end
