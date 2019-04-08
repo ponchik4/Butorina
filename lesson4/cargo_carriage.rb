@@ -1,7 +1,7 @@
 class CargoCarriage
-  attr_reader :cargo_carriage
+  attr_reader :type_carriage
 
   def initialize
-    @cargo_carriage = cargo_carriage
+    @type_carriage = :cargo
   end
 end

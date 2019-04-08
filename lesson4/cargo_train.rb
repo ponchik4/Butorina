@@ -1,17 +1,8 @@
 class CargoTrain < Train
-  attr_reader :number, :type
+  attr_reader :type
 
-  def initialize (number)
+  def initialize
+    @type = :cargo
     super
-    @type = "сargo"
-  end
-
-  def add_carriage
-    @cargo_carriage + 1 if @speed == 0
-  end
-
-  def delete_carriage
-    @cargo_carriage - 1 if @speed == 0
-    @cargo_carriage = 0 if @carriage < 0
   end
 end

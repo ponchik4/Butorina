@@ -1,9 +1,9 @@
 class Train
-  attr_reader :carriage, :current_station, :speed, :type
+  attr_reader :current_station, :speed, :carriage, :route, :number
 
-  def initialize (number, type)
+  def initialize (number)
     @number = number
-    @type = type
+    @carriage = []
   end
 
   def increase_speed(speed = 5)
@@ -18,6 +18,14 @@ class Train
 
   def stop
     @speed = 0
+  end
+
+  def add_carriage
+    @carriage << @carriage.max + 1 if @speed == 0 && @type = @type_carriage
+  end
+
+  def delete_carriage(carriage)
+    @carriage.delete_at(-1) if @speed == 0 && @carriage.any?
   end
 
   def set_route(route)
@@ -44,7 +52,7 @@ class Train
     end
   end
 
-  protected #Эти методы не используются другими объектами, но используется дочерними классами.
+  protected #Эти методы не используются другими объектами, но используются дочерними классами.
 
   def next_station
     @route.stations[@current_station_index] if @current_station != @route.last_station

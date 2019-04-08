@@ -1,7 +1,7 @@
 class PassengerCarriage
-  attr_reader :passenger_carriage
+  attr_reader :type_carriage
 
   def initialize
-    @passenger_carriage = passenger_carriage
+    @type_carriage = :passenger
   end
 end
