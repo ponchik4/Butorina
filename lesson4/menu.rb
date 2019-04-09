@@ -1,4 +1,5 @@
 class Menu
+  attr_reader :add_station, :create_train, :create_route
 
 def initialize
   @stations = []
@@ -18,9 +19,9 @@ def create_train
   puts "Если вы хотите создать пассажирский поезд, ведите: passenger,
   или если вы хотите создать грузовой поезд, то ведите: cargo"
   @type = gets.chomp
-  if @type = passenger
+  if @type = "passenger"
     @trains << PassengerTrain.new(number)
-  elsif @type = cargo
+  elsif @type = "cargo"
     @trains << CargoTrain.new(number)
   else
     puts "Вы допустили ошибку, попробуйте еще раз"
@@ -38,30 +39,37 @@ def create_route
 end
 
 def assign_route
-  puts "#{@trains.each do |train|
+  @trains.each do |train|
     puts train.number
-  end} укажите номер поезда, которому вы хотите задать маршрут"
+  end
+  puts "Укажите номер поезда, которому вы хотите задать маршрут"
   selected_train = gets.chomp
-  puts "#{@routes.each do |route|
+  puts @routes.each do |route|
     puts route.route_number
-  end} укажите номер маршрута"
+  end
+  puts "Укажите номер маршрута"
   selected_route = gets.chomp
-  Train.set_route
+  (selected_train).set_route(selected_route)
 end
 
 def add_carriage
+  (selected_train).add_carriage
 end
 
 def delete_carriage
+  (selected_train).delete_carriage
 end
 
 def move_forward
+  (selected_train).move_forward
 end
 
 def move_back
+  (selected_train).move_back
 end
 
 def show_stations_and_trains
+  puts @stations.name
 end
 
 
