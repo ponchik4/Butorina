@@ -16,12 +16,12 @@ end
 def create_train
   puts "Введите номер поезда"
   number = gets.chomp
-  puts "Если вы хотите создать пассажирский поезд, ведите: passenger,
+  puts "Если вы хотите создать пассажирский поезд, ведите: passenger, \
   или если вы хотите создать грузовой поезд, то ведите: cargo"
   @type = gets.chomp
-  if @type = "passenger"
+  if @type == "passenger"
     @trains << PassengerTrain.new(number)
-  elsif @type = "cargo"
+  elsif @type == "cargo"
     @trains << CargoTrain.new(number)
   else
     puts "Вы допустили ошибку, попробуйте еще раз"
@@ -44,7 +44,7 @@ def assign_route
   end
   puts "Укажите номер поезда, которому вы хотите задать маршрут"
   selected_train = gets.chomp
-  puts @routes.each do |route|
+  @routes.each do |route|
     puts route.route_number
   end
   puts "Укажите номер маршрута"
@@ -69,8 +69,27 @@ def move_back
 end
 
 def show_stations_and_trains
-  puts @stations.name
+  @stations.each do |staion|
+    puts staion.name
+  end
 end
 
 
+
+def generate_station
+  @stations << Station.new('msk')
+  @stations << Station.new('spb')
+  @stations << Station.new('pskov')
+end
+def generate_train
+  @trains << PassengerTrain.new('xxxx1')
+  @trains << PassengerTrain.new('s222222pb')
+  @trains << PassengerTrain.new('sdfsdfdsfds')
+  @trains << CargoTrain.new('XXXX32')
+end
+
+def generate_data
+  generate_station
+  generate_train
+end
 end

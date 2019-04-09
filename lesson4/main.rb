@@ -7,7 +7,11 @@ require_relative 'passenger_train'
 require_relative 'cargo_train'
 require_relative 'menu'
 
+
 menu = Menu.new
+menu.generate_data
+
+
   loop do
     puts "Нажмите 1 чтобы создать станцию"
     puts "Нажмите 2 чтобы создать поезд"
