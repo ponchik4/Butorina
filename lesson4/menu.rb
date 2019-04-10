@@ -1,5 +1,11 @@
 class Menu
-  attr_reader :add_station, :create_train, :create_route
+  attr_reader :add_station, :create_train, :create_route, :assign_route
+
+  def initialize
+    @stations = []
+    @trains = []
+    @routes = []
+  end
 
   def user_data
     loop do
@@ -17,33 +23,29 @@ class Menu
       break if x == 0
       case x
       when 1
-        menu.add_station
+        add_station
       when 2
-        menu.create_train
+        create_train
       when 3
-        menu.create_route
+        create_route
       when 4
-        menu.assign_route
+        assign_route
       when 5
-        menu.add_carriage
+        add_carriage
       when 6
-        menu.delete_carriage
+        delete_carriage
       when 7
-        menu.move_forward
+        move_forward
       when 8
-        menu.move_back
+        move_back
       when 9
-        menu.show_stations_and_trains
+        show_stations_and_trains
+      when 666
+        generate_data
       else
         puts "Вы ввели что-то не то"
       end
     end
-  end
-
-  def initialize
-    @stations = []
-    @trains = []
-    @routes = []
   end
 
   def add_station
@@ -78,17 +80,17 @@ class Menu
   end
 
   def assign_route
-    @trains.each do |train|
-      puts train.number
+    @trains.each.with_index do |train_index|
+     puts train_index
     end
     puts "Укажите номер поезда, которому вы хотите задать маршрут"
-    selected_train = gets.chomp
-    @routes.each do |route|
-      puts route.route_number
+    selected_train = gets.chomp.to_i
+    @routes.each.with_index do |route_index|
+      puts route_index
     end
     puts "Укажите номер маршрута"
-    selected_route = gets.chomp
-    (selected_train).set_route(selected_route)
+    selected_route = gets.chomp.to_i
+    @trains[selected_train].set_route @routes[selected_train]
   end
 
   def add_carriage
