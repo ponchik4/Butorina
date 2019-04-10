@@ -84,21 +84,31 @@ class Menu
      puts train_index
     end
     puts "Укажите номер поезда, которому вы хотите задать маршрут"
-    selected_train = gets.chomp.to_i
+    selected_train = gets.chomp
     @routes.each.with_index do |route_index|
       puts route_index
     end
     puts "Укажите номер маршрута"
-    selected_route = gets.chomp.to_i
+    selected_route = gets.chomp
     @trains[selected_train].set_route @routes[selected_train]
   end
 
   def add_carriage
-    (selected_train).add_carriage
+    @trains.each.with_index do |train_index|
+     puts train_index
+    end
+    puts "Укажите номер поезда, которому вы хотите прицепить вагон"
+    selected_train = gets.chomp
+    @trains[selected_train].add_carriage
   end
 
   def delete_carriage
-    (selected_train).delete_carriage
+    @trains.each.with_index do |train_index|
+     puts train_index
+    end
+    puts "Укажите номер поезда, у которого вы хотите отцепить вагон"
+    selected_train = gets.chomp
+    @trains[selected_train].delete_carriage
   end
 
   def move_forward
