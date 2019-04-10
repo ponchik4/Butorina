@@ -7,44 +7,42 @@ require_relative 'passenger_train'
 require_relative 'cargo_train'
 require_relative 'menu'
 
-
 menu = Menu.new
 menu.generate_data
 
-
-  loop do
-    puts "Нажмите 1 чтобы создать станцию"
-    puts "Нажмите 2 чтобы создать поезд"
-    puts "Нажмите 3 чтобы создать или редактировать маршрут"
-    puts "Нажмите 4 чтобы назначить маршрут поезду"
-    puts "Нажмите 5 чтобы добавить вагоны"
-    puts "Нажмите 6 чтобы отцепить вагоны"
-    puts "Нажмите 7 чтобы переместить вагоны на станцию вперед"
-    puts "Нажмите 8 чтобы переместить вагоны на станцию назад"
-    puts "Нажмите 9 чтобы просмотреть список станций и список поездов на станции"
-    puts "Нажмите 0 чтобы закончить программу"
-    x = gets.to_i
-    break if x == 0
-    case x
-      when 1
-        menu.add_station
-      when 2
-        menu.create_train
-      when 3
-         menu.create_route
-      when 4
-         menu.assign_route
-      when 5
-         menu.add_carriage
-      when 6
-         menu.delete_carriage
-      when 7
-         menu.move_forward
-      when 8
-         menu.move_back
-      when 9
-         menu.show_stations_and_trains
-    else
-      puts "Вы ввели что-то не то"
-    end
+loop do
+  puts "Нажмите 1 чтобы создать станцию"
+  puts "Нажмите 2 чтобы создать поезд"
+  puts "Нажмите 3 чтобы создать или редактировать маршрут"
+  puts "Нажмите 4 чтобы назначить маршрут поезду"
+  puts "Нажмите 5 чтобы добавить вагоны"
+  puts "Нажмите 6 чтобы отцепить вагоны"
+  puts "Нажмите 7 чтобы переместить вагоны на станцию вперед"
+  puts "Нажмите 8 чтобы переместить вагоны на станцию назад"
+  puts "Нажмите 9 чтобы просмотреть список станций и список поездов на станции"
+  puts "Нажмите 0 чтобы закончить программу"
+  x = gets.to_i
+  break if x == 0
+  case x
+  when 1
+    menu.add_station
+  when 2
+    menu.create_train
+  when 3
+    menu.create_route
+  when 4
+    menu.assign_route
+  when 5
+    menu.add_carriage
+  when 6
+    menu.delete_carriage
+  when 7
+    menu.move_forward
+  when 8
+    menu.move_back
+  when 9
+    menu.show_stations_and_trains
+  else
+    puts "Вы ввели что-то не то"
   end
+end
