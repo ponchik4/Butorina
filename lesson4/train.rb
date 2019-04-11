@@ -20,11 +20,11 @@ class Train
     @speed = 0
   end
 
-  def add_carriage
-    @carriage << @carriage.max + 1 if @speed == 0 && @type = @type_carriage
+  def add_carriage(wagon)
+    @carriage << wagon if @speed == 0 && wagon.type == self.type
   end
 
-  def delete_carriage(carriage)
+  def delete_carriage(wagon)
     @carriage.delete_at(-1) if @speed == 0 && @carriage.any?
   end
 

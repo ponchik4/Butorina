@@ -1,23 +1,29 @@
 class Menu
-  attr_reader :add_station, :create_train, :create_route, :assign_route
+  attr_reader :stations, :trains, :routes, :carriges
 
   def initialize
     @stations = []
     @trains = []
     @routes = []
+    @carriges = []
   end
 
   def user_data
     loop do
       puts "Нажмите 1 чтобы создать станцию"
       puts "Нажмите 2 чтобы создать поезд"
-      puts "Нажмите 3 чтобы создать или редактировать маршрут"
-      puts "Нажмите 4 чтобы назначить маршрут поезду"
-      puts "Нажмите 5 чтобы добавить вагоны"
-      puts "Нажмите 6 чтобы отцепить вагоны"
-      puts "Нажмите 7 чтобы переместить вагоны на станцию вперед"
-      puts "Нажмите 8 чтобы переместить вагоны на станцию назад"
-      puts "Нажмите 9 чтобы просмотреть список станций и список поездов на станции"
+      puts "Нажмите 3 чтобы создать пассажирский вагон"
+      puts "Нажмите 4 чтобы создать грузовой вагон"
+      puts "Нажмите 5 чтобы создать маршрут"
+      puts "Нажмите 6 чтобы редактировать маршрут"
+      puts "Нажмите 7 чтобы выбрать поезд"
+      puts "Нажмите 8 чтобы назначить маршрут поезду"
+      puts "Нажмите 9 чтобы прицепить вагоны"
+      puts "Нажмите 10 чтобы отцепить вагоны"
+      puts "Нажмите 11 чтобы переместить вагоны на станцию вперед"
+      puts "Нажмите 12 чтобы переместить вагоны на станцию назад"
+      puts "Нажмите 13 чтобы просмотреть список станций"
+      puts "Нажмите 14 чтобы просмотреть список поездов на станции"
       puts "Нажмите 0 чтобы закончить программу"
       x = gets.to_i
       break if x == 0
@@ -27,19 +33,29 @@ class Menu
       when 2
         create_train
       when 3
-        create_route
+        create_passenger_carrige
       when 4
-        assign_route
+        create_cargo_carrige
       when 5
-        add_carriage
+        create_route
       when 6
-        delete_carriage
+        edit_route
       when 7
-        move_forward
+        choose_train
       when 8
-        move_back
+        assign_route
       when 9
-        show_stations_and_trains
+        add_carriage(@wagon)
+      when 10
+        delete_carriage(@wagon)
+      when 11
+        move_forward
+      when 12
+        move_back
+      when 13
+        show_stations
+      when 14
+        show_trains
       when 666
         generate_data
       else
@@ -69,60 +85,99 @@ class Menu
     end
   end
 
+  def create_passenger_carrige
+    @carriges << PassengerCarriage.new
+  end
+
+  def create_cargo_carrige
+    @carriges << CargoCarriage.new
+  end
+
   def create_route
-    puts "Для создания маршрута введите первую станцию"
-    first_station = gets.chomp
-    puts "Введите конечную станцию"
-    last_station = gets.chomp
     puts "Введите номер маршрута"
-    route_number = gets.chomp
-    @routes << Route.new(first_station, last_station, route_number)
+    route_number = gets.to_i
+    @stations.each_with_index do |station, station_index|
+      puts "#{station_index}; #{station.name}"
+    end
+    puts "Для создания маршрута введите первую станцию"
+    first_station = gets.to_i
+    puts "Введите конечную станцию"
+    last_station = gets.to_i
+    @routes << Route.new(@stations[first_station], @stations[last_station], route_number)
+  end
+
+  def edit_route
+    @stations.each_with_index do |station, station_index|
+      puts "#{station_index}; #{station.name}"
+    end
+    puts "Введите номер станции которую вы хотите добавить в маршрут"
+    station = gets.to_i
+    @routes.each_with_index do |route, route_index|
+      puts "#{route_index}; #{route.route_number}"
+    end
+    puts "Выберете номер маршрута"
+    route = gets.to_i
+    puts "введите 1, если хотите удалить станцию либо введите 2, если хотите добавить станцию"
+    choice = gets.to_i
+    @routes[route].add_stations(station) if choice == 2
+    @routes[route].delete_staion(station) if choice == 1
+  end
+
+  def choose_train
+    @trains.each_with_index do |train, train_index|
+     puts "#{train_index}; #{train.number}"
+    end
+    puts "Выберете поезд"
+    @selected_train = gets.to_i
   end
 
   def assign_route
-    @trains.each.with_index do |train_index|
-     puts train_index
-    end
-    puts "Укажите номер поезда, которому вы хотите задать маршрут"
-    selected_train = gets.chomp
-    @routes.each.with_index do |route_index|
-      puts route_index
+    @routes.each_with_index do |route, route_index|
+      puts "#{route_index}; #{route.route_number}"
     end
     puts "Укажите номер маршрута"
-    selected_route = gets.chomp
-    @trains[selected_train].set_route @routes[selected_train]
+    selected_route = gets.to_i
+    @trains[@selected_train].set_route(@routes[selected_route])
   end
 
-  def add_carriage
-    @trains.each.with_index do |train_index|
-     puts train_index
+  def add_carriage(wagon)
+    if @selected_train
+      @trains[@selected_train].add_carriage(wagon)
+    else
+      puts 'Не выбран поезд'
     end
-    puts "Укажите номер поезда, которому вы хотите прицепить вагон"
-    selected_train = gets.chomp
-    @trains[selected_train].add_carriage
   end
 
-  def delete_carriage
-    @trains.each.with_index do |train_index|
-     puts train_index
-    end
-    puts "Укажите номер поезда, у которого вы хотите отцепить вагон"
-    selected_train = gets.chomp
-    @trains[selected_train].delete_carriage
+  def delete_carriage(wagon)
+     @trains[@selected_train].delete_carriage(wagon)
   end
 
   def move_forward
-    (selected_train).move_forward
+    if @selected_train
+      @trains[@selected_train].move_forward
+    else
+      puts 'Не выбран поезд'
+    end
   end
 
   def move_back
-    (selected_train).move_back
+    @trains[@selected_train].move_back
   end
 
-  def show_stations_and_trains
-    @stations.each do |staion|
-      puts staion.name
+  def show_stations
+    @stations.each do |station|
+      puts station.name
     end
+  end
+
+  def show_trains
+    puts 'ooi'
+    @stations.each_with_index do |station, station_index|
+      puts "#{station_index}; #{station.name}"
+    end
+    puts "Введите номер станции на которой вы хотите посмотреть поезда"
+    station = gets.to_i
+    puts @stations[station].trains
   end
 
   def generate_station
@@ -137,8 +192,19 @@ class Menu
     @trains << CargoTrain.new('XXXX32')
   end
 
+
+
+  def generate_carrige
+    @carriges << PassengerCarriage.new
+    @carriges << CargoCarriage.new
+    @carriges << PassengerCarriage.new
+    @wagon = @carriges[1]
+  end
+
   def generate_data
     generate_station
     generate_train
+    generate_carrige
+
   end
 end
