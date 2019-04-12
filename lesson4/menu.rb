@@ -29,7 +29,7 @@ class Menu
       break if x == 0
       case x
       when 1
-        add_station
+        return_train
       when 2
         create_train
       when 3
@@ -128,7 +128,7 @@ class Menu
      puts "#{train_index}; #{train.number}"
     end
     puts "Выберете поезд"
-    @selected_train = gets.to_i
+    return_train = gets.to_i
   end
 
   def assign_route
@@ -137,31 +137,28 @@ class Menu
     end
     puts "Укажите номер маршрута"
     selected_route = gets.to_i
-    @trains[@selected_train].set_route(@routes[selected_route])
+    selected_train = self.choose_train
+    @trains[selected_train].set_route(@routes[selected_route])
   end
 
   def add_carriage(wagon)
-    if @selected_train
-      @trains[@selected_train].add_carriage(wagon)
-    else
-      puts 'Не выбран поезд'
-    end
+    selected_train = self.choose_train
+    @trains[selected_train].add_carriage(wagon)
   end
 
   def delete_carriage(wagon)
-     @trains[@selected_train].delete_carriage(wagon)
+    selected_train = self.choose_train
+    @trains[selected_train].delete_carriage(wagon)
   end
 
   def move_forward
-    if @selected_train
-      @trains[@selected_train].move_forward
-    else
-      puts 'Не выбран поезд'
-    end
+    selected_train = self.choose_train
+    @trains[selected_train].move_forward
   end
 
   def move_back
-    @trains[@selected_train].move_back
+    selected_train = self.choose_train
+    @trains[selected_train].move_back
   end
 
   def show_stations
@@ -171,7 +168,6 @@ class Menu
   end
 
   def show_trains
-    puts 'ooi'
     @stations.each_with_index do |station, station_index|
       puts "#{station_index}; #{station.name}"
     end
