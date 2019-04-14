@@ -16,14 +16,13 @@ class Menu
       puts "Нажмите 4 чтобы создать грузовой вагон"
       puts "Нажмите 5 чтобы создать маршрут"
       puts "Нажмите 6 чтобы редактировать маршрут"
-      puts "Нажмите 7 чтобы выбрать поезд"
-      puts "Нажмите 8 чтобы назначить маршрут поезду"
-      puts "Нажмите 9 чтобы прицепить вагоны"
-      puts "Нажмите 10 чтобы отцепить вагоны"
-      puts "Нажмите 11 чтобы переместить вагоны на станцию вперед"
-      puts "Нажмите 12 чтобы переместить вагоны на станцию назад"
-      puts "Нажмите 13 чтобы просмотреть список станций"
-      puts "Нажмите 14 чтобы просмотреть список поездов на станции"
+      puts "Нажмите 7 чтобы назначить маршрут поезду"
+      puts "Нажмите 8 чтобы прицепить вагоны"
+      puts "Нажмите 9 чтобы отцепить вагоны"
+      puts "Нажмите 10 чтобы переместить вагоны на станцию вперед"
+      puts "Нажмите 11 чтобы переместить вагоны на станцию назад"
+      puts "Нажмите 12 чтобы просмотреть список станций"
+      puts "Нажмите 13 чтобы просмотреть список поездов на станции"
       puts "Нажмите 0 чтобы закончить программу"
       x = gets.to_i
       break if x == 0
@@ -41,20 +40,18 @@ class Menu
       when 6
         edit_route
       when 7
-        choose_train
-      when 8
         assign_route
-      when 9
+      when 8
         add_carriage(@wagon)
-      when 10
+      when 9
         delete_carriage(@wagon)
-      when 11
+      when 10
         move_forward
-      when 12
+      when 11
         move_back
-      when 13
+      when 12
         show_stations
-      when 14
+      when 13
         show_trains
       when 666
         generate_data
@@ -128,7 +125,7 @@ class Menu
      puts "#{train_index}; #{train.number}"
     end
     puts "Выберете поезд"
-    return_train = gets.to_i
+    @trains[gets.to_i]
   end
 
   def assign_route
@@ -137,28 +134,28 @@ class Menu
     end
     puts "Укажите номер маршрута"
     selected_route = gets.to_i
-    selected_train = self.choose_train
-    @trains[selected_train].set_route(@routes[selected_route])
+    selected_train = choose_train
+    selected_train.set_route(@routes[selected_route])
   end
 
   def add_carriage(wagon)
-    selected_train = self.choose_train
-    @trains[selected_train].add_carriage(wagon)
+    selected_train = choose_train
+    selected_train.add_carriage(wagon)
   end
 
   def delete_carriage(wagon)
-    selected_train = self.choose_train
-    @trains[selected_train].delete_carriage(wagon)
+    selected_train = choose_train
+    selected_train.delete_carriage(wagon)
   end
 
   def move_forward
-    selected_train = self.choose_train
-    @trains[selected_train].move_forward
+    selected_train = choose_train
+    selected_train.move_forward
   end
 
   def move_back
-    selected_train = self.choose_train
-    @trains[selected_train].move_back
+    selected_train = choose_train
+    selected_train.move_back
   end
 
   def show_stations
