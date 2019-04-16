@@ -1,4 +1,4 @@
-require_relative 'InstanceCounter'
+require_relative 'instance_counter'
 require_relative 'Manufacturer'
 
 class Train
