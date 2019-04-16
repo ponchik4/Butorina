@@ -2,6 +2,7 @@ require_relative 'instance_counter'
 require_relative 'Manufacturer'
 
 class PassengerCarriage
+  include InstanceCounter
   attr_reader :type_carriage
 
   def initialize

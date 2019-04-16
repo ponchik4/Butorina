@@ -1,8 +1,8 @@
 require_relative 'instance_counter'
 require_relative 'Manufacturer'
 
-include InstanceCounter
 class Train
+  include InstanceCounter
   attr_reader :current_station, :speed, :carriage, :route, :number
 
   def initialize (number)
