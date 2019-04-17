@@ -9,6 +9,7 @@ class Station
    @trains = []
    @@stations = []
    register_instance
+   self.class.all << self
   end
 
   def self.all
