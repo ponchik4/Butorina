@@ -19,7 +19,8 @@ class Train
   end
 
   def self.find(number)
-    self.all.select
+    @@trains.each do |train|
+      puts train[:number] if train[:number] == number
   end
 
   def increase_speed(speed = 5)
