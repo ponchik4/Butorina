@@ -11,15 +11,15 @@ class Train
     @number = number
     @carriage = []
     register_instance
-    self.class.all << self
+    @@trains = {number: 'train'}
   end
 
   def self.all
-    @@all ||= []
+    @@all ||= {}
   end
 
   def self.find(number)
-    self.all.select { |train| train.number == number }
+    self.all.select
   end
 
   def increase_speed(speed = 5)
