@@ -6,21 +6,18 @@ class Train
   include InstanceCounter
   include Manufacturer
   attr_reader :current_station, :speed, :carriage, :route, :number
+  #@@trains = []
+  @@trains = {}
 
   def initialize (number)
     @number = number
     @carriage = []
     register_instance
-    @@trains = {number: 'train'}
-  end
-
-  def self.all
-    @@all ||= {}
+    @@trains[number] = self
   end
 
   def self.find(number)
-    @@trains.each do |train|
-      puts train[:number] if train[:number] == number
+    @@trains[number]
   end
 
   def increase_speed(speed = 5)
