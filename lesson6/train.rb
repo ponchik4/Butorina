@@ -18,6 +18,12 @@ class Train
     validate?
   end
 
+  def valid?
+    validate?
+  rescue
+    false
+  end
+
   def self.find(number)
     @@trains[number]
   end
@@ -69,7 +75,7 @@ class Train
   end
 
   protected #Эти методы не используются другими объектами, но используются дочерними классами.
-  
+
   def validate?
     raise "Number can't be nil" if number.nil?
     raise "Number should be at least 5-6 symbols" if number.length > 6 &&  number.length < 5
