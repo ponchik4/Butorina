@@ -10,8 +10,8 @@ class Route
     @last_station = last_station
     @stations = []
     @route_number = route_number
-    register_instance
     validate!
+    register_instance
   end
 
   def valid?

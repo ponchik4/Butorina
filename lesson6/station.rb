@@ -9,9 +9,9 @@ class Station
   def initialize(name)
    @name = name
    @trains = []
+   validate!
    register_instance
    self.class.all << self
-   validate!
   end
 
   def valid?
@@ -38,7 +38,7 @@ class Station
   end
 
   private
-  
+
   def validate!
     raise "Name can't be nil" if name.nil?
   end

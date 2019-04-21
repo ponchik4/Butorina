@@ -13,9 +13,9 @@ class Train
   def initialize (number)
     @number = number
     @carriage = []
+    validate!
     register_instance
     @@trains[number] = self
-    validate!
   end
 
   def valid?
