@@ -15,7 +15,7 @@ class Train
     @carriage = []
     register_instance
     @@trains[number] = self
-    validate?
+    valid?
   end
 
   def valid?
