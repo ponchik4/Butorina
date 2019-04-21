@@ -2,6 +2,7 @@ require_relative 'instance_counter'
 
 class Station
   include InstanceCounter
+
   attr_reader :name, :trains
   @@stations = []
 
@@ -10,7 +11,14 @@ class Station
    @trains = []
    register_instance
    self.class.all << self
-   validate?
+   validate!
+  end
+
+  def valid?
+    validate!
+    true
+  rescue
+    false
   end
 
   def self.all
@@ -30,8 +38,8 @@ class Station
   end
 
   private
-  def validate?
+  
+  def validate!
     raise "Name can't be nil" if name.nil?
-    true
   end
 end

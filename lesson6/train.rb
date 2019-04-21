@@ -1,10 +1,10 @@
-require_relative 'instance_counter'
+ require_relative 'instance_counter'
 require_relative 'manufacturer'
 
 class Train
-
   include InstanceCounter
   include Manufacturer
+
   attr_reader :current_station, :speed, :carriage, :route
   attr_accessor :number
   NUMBER_FORMAT = /^[a-z]{3}-*[a-z\d]{2}$/i
@@ -15,11 +15,12 @@ class Train
     @carriage = []
     register_instance
     @@trains[number] = self
-    valid?
+    validate!
   end
 
   def valid?
-    validate?
+    validate!
+    true
   rescue
     false
   end
@@ -76,11 +77,10 @@ class Train
 
   protected #Эти методы не используются другими объектами, но используются дочерними классами.
 
-  def validate?
+  def validate!
     raise "Number can't be nil" if number.nil?
     raise "Number should be at least 5-6 symbols" if number.length > 6 &&  number.length < 5
     raise "Number has invalid format" if number !~ NUMBER_FORMAT
-    true
   end
 
   def next_station
