@@ -1,0 +1,5 @@
+require_relative 'station'
+require_relative 'route'
+require_relative 'train'
+require_relative 'freight_car'
+require_relative 'coach'

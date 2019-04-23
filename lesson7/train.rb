@@ -18,6 +18,12 @@ class Train
     @@trains[number] = self
   end
 
+  def each_carriage
+    @carriage.each.with_index(1) do |carriage, index|
+      yield(carriage, index)
+    end
+  end
+
   def valid?
     validate!
     true

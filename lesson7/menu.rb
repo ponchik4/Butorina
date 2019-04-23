@@ -90,11 +90,15 @@ class Menu
   end
 
   def create_passenger_carrige
-    @carriges << PassengerCarriage.new
+    puts "Введите колличество мест в вагоне"
+    seats = gets.to_i
+    @carriges << PassengerCarriage.new(seats)
   end
 
   def create_cargo_carrige
-    @carriges << CargoCarriage.new
+    puts "Введите колличество мест в вагоне"
+    volume = gets.to_i
+    @carriges << CargoCarriage.new(volume)
   end
 
   def create_route
@@ -145,14 +149,24 @@ class Menu
     selected_train.set_route(@routes[selected_route])
   end
 
-  def add_carriage(wagon)
-    selected_train = choose_train
-    selected_train.add_carriage(wagon)
+  def choose_carriage
+    @carriges.each_with_index do |wagon, wagon_index|
+     puts "#{wagon_index}; #{wagon.number}"
+    end
+    puts "Выберете вагон"
+    @carriges[gets.to_i]
   end
 
-  def delete_carriage(wagon)
+  def add_carriage
     selected_train = choose_train
-    selected_train.delete_carriage(wagon)
+    selected_carriage = choose_carriage
+    selected_train.add_carriage(selected_carriage)
+  end
+
+  def delete_carriage
+    selected_train = choose_train
+    selected_carriage = choose_carriage
+    selected_train.delete_carriage(selected_carriage)
   end
 
   def move_forward
@@ -197,7 +211,6 @@ class Menu
     @carriges << PassengerCarriage.new
     @carriges << CargoCarriage.new
     @carriges << PassengerCarriage.new
-    @wagon = @carriges[1]
   end
 
   def generate_data

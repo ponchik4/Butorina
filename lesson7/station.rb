@@ -14,6 +14,12 @@ class Station
    self.class.all << self
   end
 
+  def each_train
+    @trains.each do |train|
+      yield(train)
+    end
+  end
+
   def valid?
     validate!
     true
