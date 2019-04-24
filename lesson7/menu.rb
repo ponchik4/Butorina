@@ -96,7 +96,7 @@ class Menu
   end
 
   def create_cargo_carrige
-    puts "Введите колличество мест в вагоне"
+    puts "Введите объем вагона"
     volume = gets.to_i
     @carriges << CargoCarriage.new(volume)
   end
@@ -151,21 +151,22 @@ class Menu
 
   def choose_carriage
     @carriges.each_with_index do |wagon, wagon_index|
-     puts "#{wagon_index}; #{wagon.number}"
+     puts "#{wagon_index}; #{wagon.type_carriage}"
     end
     puts "Выберете вагон"
     @carriges[gets.to_i]
   end
 
-  def add_carriage(selected_carriage)
+  def add_carriage
     selected_train = choose_train
-    selected_carriage = choose_carriage
-    selected_train.add_carriage
+    wagon = self.choose_carriage
+    selected_train.add_carriage(wagon)
   end
 
   def delete_carriage
     selected_train = choose_train
-    selected_train.delete_carriage
+    wagon = self.choose_carriage
+    selected_train.delete_carriage(wagon)
   end
 
   def move_forward
