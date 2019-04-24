@@ -7,11 +7,10 @@ class PassengerCarriage
 
   attr_reader :type_carriage, :occupied_seat, :number
 
-  def initialize(seats, number)
+  def initialize(seats)
     @type_carriage = :passenger
     @seats = seats
     @occupied = 0
-    @number = 
   end
 
   def occupied_seat

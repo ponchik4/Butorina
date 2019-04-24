@@ -28,7 +28,7 @@ class Menu
       break if x == 0
       case x
       when 1
-        return_train
+        add_station
       when 2
         create_train
       when 3
@@ -42,9 +42,9 @@ class Menu
       when 7
         assign_route
       when 8
-        add_carriage(@wagon)
+        add_carriage
       when 9
-        delete_carriage(@wagon)
+        delete_carriage
       when 10
         move_forward
       when 11
@@ -157,16 +157,15 @@ class Menu
     @carriges[gets.to_i]
   end
 
-  def add_carriage
+  def add_carriage(selected_carriage)
     selected_train = choose_train
     selected_carriage = choose_carriage
-    selected_train.add_carriage(selected_carriage)
+    selected_train.add_carriage
   end
 
   def delete_carriage
     selected_train = choose_train
-    selected_carriage = choose_carriage
-    selected_train.delete_carriage(selected_carriage)
+    selected_train.delete_carriage
   end
 
   def move_forward
