@@ -64,21 +64,21 @@ class Train
   end
 
   def move_forward
-    if next_station
-      @current_station.remove_train(self)
-      @current_station_index += 1
-      @current_station = next_station
-      @current_station.add_train(self)
-    end
+    return unless next_station
+
+    @current_station.remove_train(self)
+    @current_station_index += 1
+    @current_station = next_station
+    @current_station.add_train(self)
   end
 
   def move_back
-    if previous_station
-      @current_station.remove_train(self)
-      @current_station_index -= 1
-      @current_station = previous_station
-      @current_station.add_train(self)
-    end
+    return unless previous_station
+
+    @current_station.remove_train(self)
+    @current_station_index -= 1
+    @current_station = previous_station
+    @current_station.add_train(self)
   end
 
   protected # These methods are not used by other objects, but are used by child classes.
